@@ -1,5 +1,6 @@
 import {SQSEvent, SQSRecord} from 'aws-lambda';
-import {Input, InputModel} from './input';
+import {Input} from './input';
+import {InputModel} from './input.model';
 import {Request} from './request/request';
 import {RequestModel} from './request/request.model';
 
