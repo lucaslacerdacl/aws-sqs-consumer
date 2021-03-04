@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, {AxiosResponse} from 'axios';
 import {RequestModel} from './request.model';
 
 /**
@@ -9,7 +9,7 @@ export class Request {
    * Executa uma request através do paramêtros fornecidos.
    * @param request Contém os parêmtros para envio da request.
    */
-  async simple(request: RequestModel) {
+  async simple(request: RequestModel): Promise<AxiosResponse> {
     const response = await axios({
       method: request.method,
       url: request.url,
