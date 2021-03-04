@@ -2,12 +2,14 @@
   "name": "aws-sqs-consumer",
   "version": "1.0.0",
   "description": "Consumidor de uma fila AWS SQS.",
-  "main": "index.js",
+  "main": "build/src/aws-lambda.js",
   "scripts": {
     "lint": "gts lint",
     "lint-clean": "gts clean",
     "lint-fix": "gts fix",
-    "compile": "tsc"
+    "compile": "tsc",
+    "test": "npx jest --runInBand --detectOpenHandles --colors --verbose --reporters=default",
+    "test-coverage": "yarn test --coverage"
   },
   "repository": {
     "type": "git",
@@ -19,16 +21,23 @@
     "url": "https://github.com/lucaslacerdacl/aws-sqs-consumer/issues"
   },
   "homepage": "https://github.com/lucaslacerdacl/aws-sqs-consumer#readme",
-  "devDependencies": {
-    "@types/node": "^14.11.2",
-    "gts": "^3.1.0",
-    "typescript": "^4.0.3"
-  },
   "dependencies": {
     "@babel/core": "^7.13.8",
     "@babel/preset-env": "^7.13.9",
     "@babel/preset-typescript": "^7.13.0",
     "@types/aws-lambda": "^8.10.72",
-    "axios": "^0.21.1"
+    "@types/jest": "^26.0.20",
+    "@types/node": "^14.11.2",
+    "axios": "^0.21.1",
+    "babel-jest": "^26.6.3",
+    "gts": "^3.1.0",
+    "jest": "^26.6.3",
+    "jest-junit": "^12.0.0",
+    "moq.ts": "^7.2.0",
+    "reflect-metadata": "^0.1.13",
+    "ts-jest": "^26.5.2",
+    "ts-transformer-keys": "^0.4.3",
+    "typescript": "^4.0.3",
+    "winston": "^3.3.3"
   }
 }
