@@ -1205,7 +1205,7 @@
   dependencies:
     "@types/istanbul-lib-report" "*"
 
-"@types/jest@26.x", "@types/jest@^26.0.20":
+"@types/jest@^26.0.20":
   version "26.0.20"
   resolved "https://registry.yarnpkg.com/@types/jest/-/jest-26.0.20.tgz#cd2f2702ecf69e86b586e1f5223a60e454056307"
   integrity sha512-9zi2Y+5USJRxd0FsahERhBwlcvFh6D2GLQnY2FH2BzK8J9s9omvNHIbvABwIluXa0fD8XVKMLTO0aOEuUfACAA==
@@ -1781,9 +1781,9 @@ camelcase@^6.0.0, camelcase@^6.2.0:
   integrity sha512-c7wVvbw3f37nuobQNtgsgG9POC9qMbNuMQmTCqZv23b6MIz0fcYpBiOlv9gEN/hdLdnZTDQhg6e9Dq5M1vKvfg==
 
 caniuse-lite@^1.0.30001181:
-  version "1.0.30001194"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001194.tgz#3d16ff3d734a5a7d9818402c28b1f636c5be5bed"
-  integrity sha512-iDUOH+oFeBYk5XawYsPtsx/8fFpndAPUQJC7gBTfxHM8xw5nOZv7ceAD4frS1MKCLUac7QL5wdAJiFQlDRjXlA==
+  version "1.0.30001196"
+  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001196.tgz#00518a2044b1abf3e0df31fadbe5ed90b63f4e64"
+  integrity sha512-CPvObjD3ovWrNBaXlAIGWmg2gQQuJ5YhuciUOjPRox6hIQttu8O+b51dx6VIpIY9ESd2d0Vac1RKpICdG4rGUg==
 
 capture-exit@^2.0.0:
   version "2.0.0"
@@ -2215,9 +2215,9 @@ ecc-jsbn@~0.1.1:
     safer-buffer "^2.1.0"
 
 electron-to-chromium@^1.3.649:
-  version "1.3.679"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.679.tgz#69b45bbf1e0bc2320cb1f3e65b9283e86c4d5e2f"
-  integrity sha512-PNF7JSPAEa/aV2nQLvflRcnIMy31EOuCY87Jbdz0KsUf8O/eFNGpuwgQn2DmyJkKzfQb0zrieanRGWvf/4H+BA==
+  version "1.3.680"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.680.tgz#88cc44bd2a85b46cf7521f714db57dd74d0cd488"
+  integrity sha512-XBACJT9RdpdWtoMXQPR8Be3ZtmizWWbxfw8cY2b5feUwiDO3FUl8qo4W2jXoq/WnnA3xBRqafu1XbpczqyUvlA==
 
 emittery@^0.7.1:
   version "0.7.2"
@@ -5456,11 +5456,10 @@ triple-beam@^1.2.0, triple-beam@^1.3.0:
   integrity sha512-XrHUvV5HpdLmIj4uVMxHggLbFSZYIn7HEWsqePZcI50pco+MPqJ50wMGY794X7AOOhxOBAjbkqfAbEe/QMp2Lw==
 
 ts-jest@^26.5.2:
-  version "26.5.2"
-  resolved "https://registry.yarnpkg.com/ts-jest/-/ts-jest-26.5.2.tgz#5281d6b44c2f94f71205728a389edc3d7995b0c4"
-  integrity sha512-bwyJ2zJieSugf7RB+o8fgkMeoMVMM2KPDE0UklRLuACxjwJsOrZNo6chrcScmK33YavPSwhARffy8dZx5LJdUQ==
+  version "26.5.3"
+  resolved "https://registry.yarnpkg.com/ts-jest/-/ts-jest-26.5.3.tgz#a6ee00ba547be3b09877550df40a1465d0295554"
+  integrity sha512-nBiiFGNvtujdLryU7MiMQh1iPmnZ/QvOskBbD2kURiI1MwqvxlxNnaAB/z9TbslMqCsSbu5BXvSSQPc5tvHGeA==
   dependencies:
-    "@types/jest" "26.x"
     bs-logger "0.x"
     buffer-from "1.x"
     fast-json-stable-stringify "2.x"
@@ -5471,11 +5470,6 @@ ts-jest@^26.5.2:
     mkdirp "1.x"
     semver "7.x"
     yargs-parser "20.x"
-
-ts-transformer-keys@^0.4.3:
-  version "0.4.3"
-  resolved "https://registry.yarnpkg.com/ts-transformer-keys/-/ts-transformer-keys-0.4.3.tgz#d62389a40f430c00ef98fb9575fb6778a196e3ed"
-  integrity sha512-pOTLlet1SnAvhKNr9tMAFwuv5283OkUNiq1fXTEK+vrSv+kxU3e2Ijr/UkqyX2vuMmvcNHdpXC31hob7ljH//g==
 
 tslib@2.0.3:
   version "2.0.3"

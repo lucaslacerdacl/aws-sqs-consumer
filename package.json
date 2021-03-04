@@ -36,7 +36,6 @@
     "moq.ts": "^7.2.0",
     "reflect-metadata": "^0.1.13",
     "ts-jest": "^26.5.2",
-    "ts-transformer-keys": "^0.4.3",
     "typescript": "^4.0.3",
     "winston": "^3.3.3"
   }
