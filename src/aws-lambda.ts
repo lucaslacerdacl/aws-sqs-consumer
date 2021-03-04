@@ -1,5 +1,5 @@
 import {SQSEvent, SQSRecord} from 'aws-lambda';
-import {InputModel} from './input.model';
+import {Input, InputModel} from './input';
 import {Request} from './request/request';
 import {RequestModel} from './request/request.model';
 
@@ -29,8 +29,15 @@ export class AwsLambda {
    * Caso ocorra algum erro durante a sincronização o callback de erro é chamado.
    * @param callback Contém as informaçÕes para performar o callback de erro.
    */
-  private async sendErrorCallback(callback: RequestModel): Promise<void> {
+  private async sendErrorCallback(
+    callback: RequestModel,
+    message: string
+  ): Promise<void> {
     try {
+      Object.assign(callback.data, {
+        message,
+      });
+
       await this.request.simple(callback);
     } catch (error) {
       console.log(`[ ERROR ] | SEND ERROR CALLBACK | ${error.message}`);
@@ -43,7 +50,7 @@ export class AwsLambda {
    */
   private parseBody(body: string): InputModel | undefined {
     try {
-      const input = JSON.parse(body);
+      const input = Input.formatBodyToInput(body);
 
       return input;
     } catch (error) {
@@ -65,7 +72,9 @@ export class AwsLambda {
         try {
           await this.request.simple(input.content);
         } catch (error) {
-          await this.sendErrorCallback(input.errorCallback);
+          console.log(`[ ERROR ] | SEND CALLBACK | ${error.message}`);
+          await this.sendErrorCallback(input.errorCallback, error.message);
+          return;
         }
 
         await this.sendSuccessCallback(input.successCallback);
