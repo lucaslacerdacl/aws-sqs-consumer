@@ -2,7 +2,12 @@
   "name": "aws-sqs-consumer-v2",
   "version": "1.0.0",
   "description": "Consumidor de uma fila AWS SQS.",
+  "author": "Lucas <lucaslacerdacl@gmail.com>",
   "main": "build/src/aws-lambda.js",
+  "license": "MIT",
+  "files": [
+    "build"
+  ],
   "scripts": {
     "lint": "gts lint",
     "lint-clean": "gts clean",
@@ -18,8 +23,6 @@
     "type": "git",
     "url": "git+https://github.com/lucaslacerdacl/aws-sqs-consumer.git"
   },
-  "author": "",
-  "license": "ISC",
   "bugs": {
     "url": "https://github.com/lucaslacerdacl/aws-sqs-consumer/issues"
   },
