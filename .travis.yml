@@ -19,6 +19,7 @@ jobs:
   include:
     - stage: NPM Publish
       deploy:
+        skip_cleanup: true
         provider: npm
         email: $NPM_EMAIL
         api_key: $NPM_TOKEN
@@ -26,9 +27,9 @@ jobs:
           branch: main
     - stage: GitHub Release
       deploy:
+        skip_cleanup: true
         provider: pages
         local_dir: docs/
         github_token: $GITHUB_TOKEN
-        skip_cleanup: true
         on:
           branch: main
