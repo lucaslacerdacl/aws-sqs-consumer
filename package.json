@@ -16,7 +16,6 @@
     "test": "npx jest --runInBand --detectOpenHandles --colors --verbose --reporters=default",
     "test-coverage": "yarn test --coverage",
     "test-coverage-upload": "yarn test-coverage && codecov",
-    "publish": "npm publish --access public",
     "docs": "typedoc src/*.ts src/**/*.ts"
   },
   "repository": {
