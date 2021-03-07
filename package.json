@@ -1,6 +1,6 @@
 {
   "name": "aws-sqs-consumer-v2",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Consumidor de uma fila AWS SQS.",
   "author": "Lucas <lucaslacerdacl@gmail.com>",
   "main": "build/src/aws-lambda.js",
