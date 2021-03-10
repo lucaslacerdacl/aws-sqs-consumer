@@ -18,6 +18,8 @@ script:
 jobs:
   include:
     - stage: NPM Publish
+      before_deploy:
+        - yarn --production
       deploy:
         skip_cleanup: true
         provider: npm
