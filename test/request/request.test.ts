@@ -1,4 +1,4 @@
-import {Request} from '../../src/request/request';
+import {Request} from '../../src/request/request.service';
 import {Methods} from '../../src/request/request.model';
 import axios from 'axios';
 jest.mock('axios');

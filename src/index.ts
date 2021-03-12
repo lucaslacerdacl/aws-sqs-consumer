@@ -1,2 +1,2 @@
-export {AwsLambda} from './aws-lambda';
-export {Request} from './request/request';
+export {AwsLambda} from './aws-lambda.service';
+export {Request} from './request/request.service';
