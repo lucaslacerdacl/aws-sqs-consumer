@@ -1,6 +1,6 @@
-import {AwsLambda} from '../src/aws-lambda';
+import {AwsLambda} from '../src/aws-lambda.service';
 import {Input} from '../src/input';
-import {Request} from '../src/request/request';
+import {Request} from '../src/request/request.service';
 import {
   createBody,
   createBodyWithSuccessCallback,
