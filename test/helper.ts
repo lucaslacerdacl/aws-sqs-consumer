@@ -1,7 +1,8 @@
-import {SQSRecord, SQSEvent} from 'aws-lambda';
+import {SQSEvent, SQSRecord} from 'aws-lambda';
+
 import {AxiosResponse} from 'axios';
-import {Mock} from 'moq.ts';
 import {Methods} from '../src/request/request.model';
+import {Mock} from 'moq.ts';
 
 export const createMockEvent = (body: string) => {
   const mockRecord = new Mock<SQSRecord>();
@@ -83,9 +84,17 @@ export const createBodyWithSuccessCallback = (message?: string | undefined) => {
   return body;
 };
 
-export const createMockAxiosResponse = () => {
+export const createMockAxiosResponse = (status?: number, data?: unknown) => {
   const mockEvent = new Mock<AxiosResponse>();
-  const event = mockEvent.object();
+  const event = mockEvent;
 
-  return event;
+  if (status) {
+    event.setup(instance => instance.status).returns(status);
+  }
+
+  if (data) {
+    event.setup(instance => instance.data).returns(data);
+  }
+
+  return event.object();
 };

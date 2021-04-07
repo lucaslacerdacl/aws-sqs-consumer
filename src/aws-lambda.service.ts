@@ -1,4 +1,5 @@
 import {SQSEvent, SQSRecord} from 'aws-lambda';
+
 import {Input} from './input';
 import {InputModel} from './input.model';
 import {Request} from './request/request.service';
@@ -71,7 +72,11 @@ export class AwsLambda {
 
       if (input) {
         try {
-          await this.request.simple(input.content);
+          const response = await this.request.simple(input.content);
+          console.log(
+            `[ SUCCESS ] | STATUS | ${response.status}`,
+            `[ SUCCESS ] | BODY | ${JSON.stringify(response.data)}`
+          );
         } catch (error) {
           console.log(`[ ERROR ] | SEND CALLBACK | ${error.message}`);
           await this.sendErrorCallback(input.errorCallback, error.message);
