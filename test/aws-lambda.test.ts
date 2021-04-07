@@ -1,12 +1,13 @@
-import {AwsLambda} from '../src/aws-lambda.service';
-import {Input} from '../src/input';
-import {Request} from '../src/request/request.service';
 import {
   createBody,
   createBodyWithSuccessCallback,
   createMockAxiosResponse,
   createMockEvent,
 } from './helper';
+
+import {AwsLambda} from '../src/aws-lambda.service';
+import {Input} from '../src/input';
+import {Request} from '../src/request/request.service';
 
 describe('AWS Lambda', () => {
   const request = new Request();
@@ -19,36 +20,62 @@ describe('AWS Lambda', () => {
   it('Envia uma requisição sem callback de sucesso.', async () => {
     const body = createBody();
     const bodyStringify = JSON.stringify(body);
+    const response = {
+      status: 200,
+      data: 'SUCCESS',
+    };
 
     const event = createMockEvent(bodyStringify);
 
     const formatBodyToInputSpy = jest
       .spyOn(Input, 'formatBodyToInput')
       .mockReturnValue(body);
-    const requestSimpleSpy = jest.spyOn(request, 'simple').mockImplementation();
+    const requestSimpleSpy = jest
+      .spyOn(request, 'simple')
+      .mockResolvedValue(
+        createMockAxiosResponse(response.status, response.data)
+      );
+    const consoleLogSpy = jest.spyOn(console, 'log').mockImplementation();
 
     await awsLambda.hanlder(event);
 
     expect(formatBodyToInputSpy).toHaveBeenCalledWith(bodyStringify);
     expect(requestSimpleSpy).toHaveBeenCalledWith(body.content);
+    expect(consoleLogSpy).toHaveBeenCalledWith(
+      `[ SUCCESS ] | STATUS | ${response.status}`,
+      `[ SUCCESS ] | BODY | ${JSON.stringify(response.data)}`
+    );
   });
 
   it('Envia uma requisição com callback de sucesso.', async () => {
     const body = createBodyWithSuccessCallback();
     const bodyStringify = JSON.stringify(body);
+    const response = {
+      status: 200,
+      data: 'SUCCESS',
+    };
 
     const event = createMockEvent(bodyStringify);
 
     const formatBodyToInputSpy = jest
       .spyOn(Input, 'formatBodyToInput')
       .mockReturnValue(body);
-    const requestSimpleSpy = jest.spyOn(request, 'simple').mockImplementation();
+    const requestSimpleSpy = jest
+      .spyOn(request, 'simple')
+      .mockResolvedValue(
+        createMockAxiosResponse(response.status, response.data)
+      );
+    const consoleLogSpy = jest.spyOn(console, 'log').mockImplementation();
 
     await awsLambda.hanlder(event);
 
     expect(formatBodyToInputSpy).toHaveBeenCalledWith(bodyStringify);
     expect(requestSimpleSpy).toHaveBeenNthCalledWith(1, body.content);
     expect(requestSimpleSpy).toHaveBeenNthCalledWith(2, body.successCallback);
+    expect(consoleLogSpy).toHaveBeenCalledWith(
+      `[ SUCCESS ] | STATUS | ${response.status}`,
+      `[ SUCCESS ] | BODY | ${JSON.stringify(response.data)}`
+    );
   });
 
   it('Envia o callback de erro.', async () => {
@@ -148,6 +175,10 @@ describe('AWS Lambda', () => {
     const body = createBodyWithSuccessCallback();
     const bodyStringify = JSON.stringify(body);
     const event = createMockEvent(bodyStringify);
+    const response = {
+      status: 200,
+      data: 'SUCCESS',
+    };
 
     const formatBodyToInputSpy = jest
       .spyOn(Input, 'formatBodyToInput')
@@ -156,7 +187,9 @@ describe('AWS Lambda', () => {
       'Tony Stark not implemented success callback';
     const requestSimpleFromContentSpy = jest
       .spyOn(request, 'simple')
-      .mockResolvedValueOnce(createMockAxiosResponse())
+      .mockResolvedValueOnce(
+        createMockAxiosResponse(response.status, response.data)
+      )
       .mockRejectedValueOnce(new Error(consumerCallbackSuccessErrorMessage));
     const consoleLogSpy = jest.spyOn(console, 'log').mockImplementation();
 
@@ -173,6 +206,11 @@ describe('AWS Lambda', () => {
     );
     expect(consoleLogSpy).toHaveBeenNthCalledWith(
       1,
+      `[ SUCCESS ] | STATUS | ${response.status}`,
+      `[ SUCCESS ] | BODY | ${JSON.stringify(response.data)}`
+    );
+    expect(consoleLogSpy).toHaveBeenNthCalledWith(
+      2,
       `[ ERROR ] | SEND SUCCESS CALLBACK | ${consumerCallbackSuccessErrorMessage}`
     );
   });
