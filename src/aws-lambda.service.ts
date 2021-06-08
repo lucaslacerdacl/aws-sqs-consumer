@@ -83,7 +83,7 @@ export class AwsLambda {
             `[ SUCCESS ] | STATUS | ${response.status}`,
             `[ SUCCESS ] | BODY | ${JSON.stringify(response.data)}`
           );
-          contentResponse = response;
+          contentResponse = response.data;
         } catch (error) {
           console.log(`[ ERROR ] | SEND CALLBACK | ${error.message}`);
           await this.sendErrorCallback(input.errorCallback, error.message);
