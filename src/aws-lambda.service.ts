@@ -16,10 +16,15 @@ export class AwsLambda {
    * @param callback Contém as informação para performar o callback de sucesso.
    */
   private async sendSuccessCallback(
-    callback: RequestModel | undefined
+    callback: RequestModel | undefined,
+    contentResponse: unknown
   ): Promise<void> {
     if (callback) {
       try {
+        Object.assign(callback.data, {
+          contentResponse,
+        });
+
         await this.request.simple(callback);
       } catch (error) {
         console.log(`[ ERROR ] | SEND SUCCESS CALLBACK | ${error.message}`);
@@ -71,19 +76,21 @@ export class AwsLambda {
       const input = this.parseBody(record.body);
 
       if (input) {
+        let contentResponse;
         try {
           const response = await this.request.simple(input.content);
           console.log(
             `[ SUCCESS ] | STATUS | ${response.status}`,
             `[ SUCCESS ] | BODY | ${JSON.stringify(response.data)}`
           );
+          contentResponse = response;
         } catch (error) {
           console.log(`[ ERROR ] | SEND CALLBACK | ${error.message}`);
           await this.sendErrorCallback(input.errorCallback, error.message);
           return;
         }
 
-        await this.sendSuccessCallback(input.successCallback);
+        await this.sendSuccessCallback(input.successCallback, contentResponse);
       }
     }
   }

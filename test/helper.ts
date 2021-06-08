@@ -74,7 +74,9 @@ export const createBodyWithSuccessCallback = (message?: string | undefined) => {
     successCallback: {
       method: Methods.POST,
       url: 'http://test.com/api/callback/success',
-      data: undefined,
+      data: {
+        billetId: '811a99cd-0de0-4034-a9a8-f3568e22a530',
+      },
       headers: {
         'Content-Type': 'application/json',
       },
