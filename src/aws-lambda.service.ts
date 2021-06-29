@@ -38,11 +38,13 @@ export class AwsLambda {
    */
   private async sendErrorCallback(
     callback: RequestModel,
-    message: string
+    message: string,
+    response: unknown
   ): Promise<void> {
     try {
       Object.assign(callback.data, {
         message,
+        response,
       });
 
       await this.request.simple(callback);
@@ -86,7 +88,11 @@ export class AwsLambda {
           contentResponse = response.data;
         } catch (error) {
           console.log(`[ ERROR ] | SEND CALLBACK | ${error.message}`);
-          await this.sendErrorCallback(input.errorCallback, error.message);
+          await this.sendErrorCallback(
+            input.errorCallback,
+            error.message,
+            error.response.data
+          );
           return;
         }
 

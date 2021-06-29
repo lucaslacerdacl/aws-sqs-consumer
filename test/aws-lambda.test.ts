@@ -80,7 +80,12 @@ describe('AWS Lambda', () => {
 
   it('Envia o callback de erro.', async () => {
     const consumerErrorMessage = 'Tony Stark is dead';
-    const body = createBody(consumerErrorMessage);
+    const consumerErrorResponse = {
+      statusCode: 422,
+      error: 'Unprocessable Entity',
+      message: 'Invalid person.',
+    };
+    const body = createBody();
     const bodyStringify = JSON.stringify(body);
 
     const event = createMockEvent(bodyStringify);
@@ -90,8 +95,12 @@ describe('AWS Lambda', () => {
       .mockReturnValue(body);
     const requestSimpleFromContentSpy = jest
       .spyOn(request, 'simple')
-      .mockRejectedValueOnce(new Error(consumerErrorMessage))
-      .mockImplementation();
+      .mockImplementationOnce(() =>
+        Promise.reject({
+          message: consumerErrorMessage,
+          response: consumerErrorResponse,
+        })
+      );
     const consoleLogSpy = jest.spyOn(console, 'log').mockImplementation();
 
     await awsLambda.hanlder(event);
@@ -111,8 +120,7 @@ describe('AWS Lambda', () => {
   });
 
   it('Mostra no console o erro de parse.', async () => {
-    const consumerErrorMessage = 'JSON parse error';
-    const body = createBody(consumerErrorMessage);
+    const body = createBody();
     const bodyStringify = JSON.stringify(body);
 
     const event = createMockEvent(bodyStringify);
@@ -136,18 +144,42 @@ describe('AWS Lambda', () => {
   it('Mostra no console a falha ao tentar enviar o callback de erro.', async () => {
     const consumerCallbackErrorMessage =
       'Tony Stark not implemented error callback';
-    const body = createBody(consumerCallbackErrorMessage);
+    const consumerCallbackErrorResponse = {
+      statusCode: 500,
+      error: 'Not implemented',
+      message: 'Callback not implemented.',
+    };
+
+    const consumerContentErrorMessage = 'Tony Stark is dead';
+    const consumerContentErrorResponse = {
+      statusCode: 422,
+      error: 'Unprocessable Entity',
+      message: 'Invalid person.',
+    };
+
+    const body = createBody();
     const bodyStringify = JSON.stringify(body);
     const event = createMockEvent(bodyStringify);
 
     const formatBodyToInputSpy = jest
       .spyOn(Input, 'formatBodyToInput')
       .mockReturnValue(body);
-    const consumerContentErrorMessage = 'Tony Stark is dead';
+
     const requestSimpleFromContentSpy = jest
       .spyOn(request, 'simple')
-      .mockRejectedValueOnce(new Error(consumerContentErrorMessage))
-      .mockRejectedValueOnce(new Error(consumerCallbackErrorMessage));
+      .mockImplementationOnce(() =>
+        Promise.reject({
+          message: consumerContentErrorMessage,
+          response: consumerContentErrorResponse,
+        })
+      )
+      .mockImplementationOnce(() =>
+        Promise.reject({
+          message: consumerCallbackErrorMessage,
+          response: consumerCallbackErrorResponse,
+        })
+      );
+
     const consoleLogSpy = jest.spyOn(console, 'log').mockImplementation();
 
     await awsLambda.hanlder(event);

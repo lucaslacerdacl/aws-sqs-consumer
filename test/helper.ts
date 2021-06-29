@@ -20,7 +20,7 @@ export const createMockEvent = (body: string) => {
   return event;
 };
 
-export const createBody = (message?: string | undefined) => {
+export const createBody = () => {
   const body = {
     content: {
       method: Methods.POST,
@@ -37,7 +37,7 @@ export const createBody = (message?: string | undefined) => {
       method: Methods.POST,
       url: 'http://test.com/api/callback/error',
       data: {
-        message,
+        test: 'send callback with error',
       },
       headers: {
         'Content-Type': 'application/json',
